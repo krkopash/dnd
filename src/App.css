@@ -1,0 +1,45 @@
+.groups {
+  display: flex;
+  margin: 5px;
+  padding: 5px;
+  flex-wrap: wrap;
+  
+
+  .group {
+    margin: 2px;
+    padding: 20px;
+    background-color: gray;
+
+    .title{
+      color: white;
+      padding: 0;
+      margin-top: 0;
+    }
+  }
+  .noDrop {
+    margin: 2px;
+    padding: 20px;
+    background-color: black;
+    cursor: not-allowed !important;
+
+    .title{
+      color: white;
+      padding: 0;
+      margin-top: 0;
+    }
+  }
+}
+
+
+.item {
+  background-color: beige;
+  margin: 5px;
+  padding: 5px;
+  cursor: grab;
+}
+
+.notAllowed {
+  background-color: black;
+  margin: 5px;
+  padding: 5px;
+}
