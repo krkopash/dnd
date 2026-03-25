@@ -49,7 +49,6 @@ const DashboardGrid: React.FC = () => {
         onLayoutChange={(newLayout: any) => {
           const updatedLayout: WidgetLayout[] = newLayout.map((item: any) => {
             const existing = layout.find((l) => l.i === item.i)
-           
             return { ...item,
               type: existing?.type || "clock",
             }
