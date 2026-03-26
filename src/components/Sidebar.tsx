@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+
 export default function Sidebar() {
   return (
     <div style={{width:"200px",height:"100vh", padding:"20px", backgroundColor:"beige"}}>
@@ -9,6 +10,7 @@ export default function Sidebar() {
           <li><Link to="/">Dashboard</Link></li>
           <li><Link to="/dnd">dnd</Link></li>
           <li><Link to="/resize">resize</Link></li>
+          <li><Link to="/members">members</Link></li>
         </ul>
       </nav>
     </div>

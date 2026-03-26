@@ -6,6 +6,7 @@ import Task from "../pages/task"
 import Time from "../pages/time"
 import Notes from "../pages/notes"
 
+
 const group: Record<string, React.FC> = {task: Task, notes: Notes, clock: Time}
 type WidgetLayout = { i: string
   x: number
@@ -25,7 +26,7 @@ const DashboardGrid: React.FC = () => {
   }, [layout])
 
   const addWidget = (type: string) => {
-    const colMap: Record<string, number> = { clock: 0, task: 3,notes: 6}
+    const colMap: Record<string, number> = { clock: 0, task: 3, notes: 6}
 
     const newWidget: WidgetLayout = {
       i: Date.now().toString(), x: colMap[type]?? 0,y:0,w: 3, h: 2, type,
@@ -37,6 +38,34 @@ const DashboardGrid: React.FC = () => {
     setLayout((prev) => prev.filter((item) => item.i !== id))
   }
 
+  const handleLayoutChange = (newLayout: ReactGridLayout.Layout[]) => {
+    const updatedLayout: WidgetLayout[] = newLayout.map((item) => {
+      const existing = layout.find((l) => l.i === item.i)
+      return { 
+        i: item.i,
+        x: item.x,
+        y: item.y,
+        w: item.w,
+        h: item.h,
+        type: existing?.type || "clock",
+      }
+    })
+    setLayout(updatedLayout);
+  }
+
+  const renderComponent = (item: WidgetLayout) => {
+    switch (item.type) {
+      case "task":
+        return <Task widgetId={item.i} />;
+      case "notes":
+        return <Notes widgetId={item.i} />;
+      case "clock":
+        return <Time />;
+      default:
+        return null;
+    }
+  }
+
   return (
     <div>
       <div style={{ marginBottom: "10px" }}>
@@ -44,29 +73,19 @@ const DashboardGrid: React.FC = () => {
         <button onClick={() => addWidget("task")}>Task</button>
         <button onClick={() => addWidget("notes")}>Notes</button>
       </div>
-    
-       <GridLayout className="layout" layout={layout} cols={12} rowHeight={100} width={1000} 
-        onLayoutChange={(newLayout: any) => {
-          const updatedLayout: WidgetLayout[] = newLayout.map((item: any) => {
-            const existing = layout.find((l) => l.i === item.i)
-            return { ...item,
-              type: existing?.type || "clock",
-            }
-          })
-
-          setLayout(updatedLayout);
-        }}>
+     
+       <GridLayout  className="layout"  layout={layout}  cols={12}  rowHeight={50}  width={1000}
+        onLayoutChange={handleLayoutChange}
+        autoSize={true}
+      >
         
         {
-        layout.map((item) => {
-          const Component = group[item.type]
-          return (
-            <div key={item.i} style={{ border: "1px solid #ccc",padding: "10px" , position: "relative", }}>
-      
-      <button  onClick={() => deleteWidget(item.i)} style={{position: "absolute", top: "5px", right: "5px"}}>X</button>
-              <Component />
-            </div>)
-        })}
+        layout.map((item) => (
+            <div key={item.i} style={{ border: "1px solid #ccc",padding: "10px" , position: "relative", overflow: "auto" }}>
+              <button onClick={() => deleteWidget(item.i)} style={{position: "absolute", top: "5px", right: "5px"}}>X</button>
+              {renderComponent(item)}
+            </div>
+        ))}
       </GridLayout> 
     </div>)}
 export default DashboardGrid

@@ -1,10 +1,9 @@
 import useGlobalEvent from "beautiful-react-hooks/useGlobalEvent"
 import * as React from "react";
-import { ImageCropper } from "./img";
-
+import { GridLayout, ReactGridLayout } from "react-grid-layout";
 
 const {useState}=React;
- const Resize=()=>{    
+ const Resize=()=>{
     const [windowwidth, setWindowwidth]=useState(window.innerWidth);
     const onWindowResize=useGlobalEvent("resize");    
 
@@ -15,7 +14,6 @@ const {useState}=React;
         <div>
             <div style={{width:"20px", maxWidth:"20px"}}>test</div>
             <button>{windowwidth}</button>
-            <ImageCropper/>
         </div>
     )
 

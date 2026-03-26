@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar"
 import Dnd from "./pages/Dnd"
 import "./App.css"
 import Resize from "./pages/Resize"
+import Members from "./pages/members"
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<Dashboard />} />
                   <Route path="/dnd" element={<Dnd/>} />
                   <Route path="/resize" element={<Resize/>}/>
+                  <Route path="/members" element={<Members/>}/>
         </Routes>
       </div>
     </div>
